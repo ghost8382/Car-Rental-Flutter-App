@@ -1,0 +1,48 @@
+plugins {
+    id "com.android.application"
+    // START: FlutterFire Configuration (remove if not using Firebase)
+    id 'com.google.gms.google-services' // Keep if using Firebase services, remove if not
+    // END: FlutterFire Configuration
+    id "kotlin-android"
+    // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
+    id "dev.flutter.flutter-gradle-plugin"
+}
+
+android {
+    namespace = "com.example.licencjat"
+    compileSdk = 35 // Use the desired compileSdk version (directly specify this instead of flutter.compileSdkVersion)
+    ndkVersion = "25.1.8937393" // Use the desired NDK version (specify if needed)
+
+    defaultConfig {
+        applicationId = "com.example.licencjat"
+        minSdk = 23 // Specify the minimum SDK version directly (use flutter.minSdkVersion if using Flutter)
+        targetSdk = 33 // Specify target SDK version directly (use flutter.targetSdkVersion if using Flutter)
+        versionCode = 1 // Use your Flutter version code or specify your own
+        versionName = "1.0.0" // Use your Flutter version name or specify your own
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8
+    }
+
+    buildTypes {
+        release {
+            // Signing with the debug keys for now, so `flutter run --release` works.
+            signingConfig = signingConfigs.debug
+        }
+    }
+}
+
+flutter {
+    source = "../.." // Specify the path to your Flutter project if needed
+}
+
+dependencies {
+    // Remove Facebook SDK if not using Facebook in your app
+    // implementation 'com.facebook.android:facebook-android-sdk:latest.release'
+}

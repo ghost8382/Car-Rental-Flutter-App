@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <string name="facebook_app_id">wypozyczalnia samochodowa</string>
+    <string name="fb_login_protocol_scheme">1874640136404834</string>
+    <string name="facebook_client_token">fb1874640136404834</string>
+
+
+</resources>
