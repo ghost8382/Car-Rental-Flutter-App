@@ -42,15 +42,27 @@ class _RegisterPageState extends State<RegisterPage> {
 
     try {
       await _authService.registerWithEmailPass(emailController.text, passController.text);
+
+
+      await _authService.signOut();
+
+
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
           title: const Text("Success"),
           content: const Text("Account created successfully! Please log in."),
-          actions: [TextButton(onPressed: () => Navigator.pop(context), child: const Text("OK"))],
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context); // Zamknij dialog
+                widget.onTap?.call(); // Przejdź do login page
+              },
+              child: const Text("OK"),
+            ),
+          ],
         ),
       );
-      widget.onTap?.call();
     } catch (e) {
       showErrorDialog(e.toString());
     } finally {
