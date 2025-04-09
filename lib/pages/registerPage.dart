@@ -18,6 +18,11 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController confirmPasswordController = TextEditingController();
   bool isLoading = false;
 
+  bool isPasswordValid(String password) {
+    final passwordRegExp = RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$');
+    return passwordRegExp.hasMatch(password);
+  }
+
   void register() async {
     final _authService = Authorize();
 
@@ -33,8 +38,8 @@ class _RegisterPageState extends State<RegisterPage> {
       return;
     }
 
-    if (passController.text.length < 6) {
-      showErrorDialog("Password must be at least 6 characters long.");
+    if (!isPasswordValid(passController.text)) {
+      showErrorDialog("Password must be at least 8 characters long, with at least one uppercase letter, one lowercase letter, and one number.");
       return;
     }
 
@@ -42,10 +47,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
     try {
       await _authService.registerWithEmailPass(emailController.text, passController.text);
-
-
       await _authService.signOut();
-
 
       showDialog(
         context: context,
@@ -55,8 +57,8 @@ class _RegisterPageState extends State<RegisterPage> {
           actions: [
             TextButton(
               onPressed: () {
-                Navigator.pop(context); // Zamknij dialog
-                widget.onTap?.call(); // Przejdź do login page
+                Navigator.pop(context);
+                widget.onTap?.call();
               },
               child: const Text("OK"),
             ),
@@ -69,6 +71,7 @@ class _RegisterPageState extends State<RegisterPage> {
       setState(() => isLoading = false);
     }
   }
+
 
   void showErrorDialog(String message) {
     showDialog(
